@@ -1,6 +1,9 @@
 import "./App.css";
 import Heading from "./heading";
 import { myBarbie, myKen, myAllan } from "./execise/doll";
+import Button from "./components/button";
+import Input from "./components/input";
+import Form from "./components/form";
 
 function App() {
 	console.log(`
@@ -33,11 +36,24 @@ function App() {
 
 	myAllan.beAllan();
 
+	function handleClick() {
+		alert("You clicked the button! YAY! 🍕");
+	}
+
 	return (
 		<>
 			<Heading />
 			<span className="hand">👋</span>
 			<p className="greeting">My name is Raymond</p>
+			<Button onClick={handleClick} className="button-hi">
+				Hi Children
+			</Button>
+
+			<Button>I am just a button</Button>
+
+			<Input type="text" />
+
+			<Form />
 		</>
 	);
 }
