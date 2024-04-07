@@ -1,7 +1,9 @@
 import { TextareaProps } from "./textarea.types";
 
-function Textarea({ ...rest }: TextareaProps) {
-	return <textarea {...rest} />;
+import "./textarea.css";
+
+function Textarea({ className, ...rest }: TextareaProps) {
+	return <textarea {...rest} className={`base-textarea ${className}`} />;
 }
 
 export default Textarea;
