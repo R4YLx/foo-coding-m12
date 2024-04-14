@@ -1,7 +1,7 @@
 import { TodoListProps } from "./todo-list.types";
 
 import "./todo-list.css";
-function TodoList({ children }: TodoListProps) {
-	return <ul className="todo-list">{children}</ul>;
+function TodoList({ className, children }: TodoListProps) {
+	return <ul className={`todo-list ${className}`}>{children}</ul>;
 }
 export default TodoList;

@@ -1,1 +1,4 @@
-export type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+	disableButton?: boolean;
+	text: string;
+}

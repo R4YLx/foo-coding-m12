@@ -4,14 +4,22 @@ import Textarea from "../textarea";
 import { FormProps } from "./form.types";
 
 import "./form.css";
+import Label from "../label";
 
-function Form({ className, ...rest }: FormProps) {
+function Form({ className, disableButton, text, ...rest }: FormProps) {
 	return (
 		<form {...rest} className={`base-form ${className}`}>
-			<Input name="title" type="text" />
-			<Textarea name="body" />
+			<Label text="Title">
+				<Input name="title" type="text" placeholder="Add title" />
+			</Label>
 
-			<Button type="submit">Post</Button>
+			<Label text="Body">
+				<Textarea name="body" placeholder="Write your post..." rows={6} />
+			</Label>
+
+			<Button type="submit" disabled={disableButton}>
+				{text}
+			</Button>
 		</form>
 	);
 }
