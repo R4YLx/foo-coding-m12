@@ -1,0 +1,7 @@
+.todo-item {
+	height: 100%;
+	padding: 2rem;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
