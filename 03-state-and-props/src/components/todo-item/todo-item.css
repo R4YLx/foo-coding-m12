@@ -7,7 +7,7 @@
 	position: relative;
 }
 
-.todo-item-completed {
+.todo-item--completed {
 	text-decoration: line-through;
 	color: green;
 	border: 1px solid green;

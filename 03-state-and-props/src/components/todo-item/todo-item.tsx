@@ -23,7 +23,7 @@ function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
 
 	return (
 		<li
-			className={`todo-item ${todo.completed ? "todo-item-completed" : ""}`}
+			className={`todo-item ${todo.completed ? "todo-item--completed" : ""}`}
 			onClick={handleToggle}
 		>
 			<h3>{todo.title}</h3>
