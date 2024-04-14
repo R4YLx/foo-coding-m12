@@ -27,19 +27,39 @@ const initialTodos = [
 
 function App() {
 	const [todos, setTodos] = useState<Todo[]>(initialTodos);
+
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+
+		const elementTarget = event.target as HTMLFormElement;
+
+		const formData = new FormData(elementTarget);
+
+		const title = formData.get("title") as string;
+		const body = formData.get("body") as string;
+
+		const newTodo: Todo = {
+			title,
+			body,
+			completed: false,
+		};
+
+		setTodos([newTodo, ...todos]);
+	}
+
 	return (
 		<>
 			<h1 className="tac">Create new todo</h1>
 
 			{/* Add Todo Form */}
-			<Form />
+			<Form onSubmit={handleSubmit} />
 
 			<h2>Todos</h2>
 
 			{/* List of Todos */}
 			<TodoList>
 				{todos.map((todo, index) => (
-					<TodoItem todo={todo} index={index} />
+					<TodoItem key={index} todo={todo} />
 				))}
 			</TodoList>
 		</>
