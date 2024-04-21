@@ -1,10 +1,10 @@
+import PlayPause from "./conditional-render/play-pause";
 import "./styles/App.css";
-import Timer from "./use-effect/timer";
 
 function App() {
 	return (
 		<>
-			<Timer />
+			<PlayPause />
 		</>
 	);
 }
