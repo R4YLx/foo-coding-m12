@@ -1,0 +1,4 @@
+.base-label {
+	display: flex;
+	flex-direction: column;
+}
