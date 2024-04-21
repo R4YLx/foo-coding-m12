@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
-import { PokemonResponse } from "./types/pokemon.types";
+import { Pokemon, PokemonResponse } from "./types/pokemon.types";
+import { capitalizeFirstLetter } from "./utils";
 
 function App() {
 	const [data, setData] = useState<PokemonResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
+
+	const [pokemonDetails, setPokemonDetails] = useState<Pokemon[] | null>(null);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -45,7 +48,30 @@ function App() {
 		fetchData();
 	}, []);
 
-	console.log(`🍌 data 🍌`, data);
+	useEffect(() => {
+		// Check if data is available and if it has results
+		if (data && data.results) {
+			// Immediately invoked async function
+			(async () => {
+				// Use Promise.all to fetch details for all Pokemon concurrently
+				const details: Pokemon[] = await Promise.all(
+					// Map over the results to create an array of promises
+					data.results.map(async (pokemon: { url: string }) => {
+						// Fetch details for each individual Pokemon
+						const response = await fetch(pokemon.url);
+						// Parse the response as JSON
+						const pokemonDetails: Pokemon = await response.json();
+						// Return the parsed data
+						return pokemonDetails;
+					})
+				);
+
+				// Once all promises have resolved, set the Pokemon details state
+				setPokemonDetails(details);
+			})();
+		}
+		// Add data as a dependency, so the effect runs whenever data changes
+	}, [data]);
 
 	return (
 		<div>
@@ -53,12 +79,12 @@ function App() {
 			{isLoading && <p>Loading...</p>}
 			{isError && <p>{error?.message}</p>}
 
-			<div>
-				{data &&
-					data.results.map((poke) => (
-						<div key={poke.name}>
-							<h2>{poke.name}</h2>
-							<p>{poke.url}</p>
+			<div className="pokemon-grid">
+				{pokemonDetails &&
+					pokemonDetails.map((pokemon) => (
+						<div key={pokemon.id} className="pokemon-card">
+							<h2>{capitalizeFirstLetter(pokemon.name)}</h2>
+							<img src={pokemon.sprites?.front_default} alt={pokemon.name} />
 						</div>
 					))}
 			</div>
